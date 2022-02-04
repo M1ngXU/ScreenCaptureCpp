@@ -38,7 +38,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam) {
         return 0;
     case WM_HOTKEY:
         if (wparam == HOTKEY_ID) {
-            if (SetFocus(hwnd) == hwnd) {
+            if (GetFocus() == hwnd) {
                 POINT tl{};
                 tl.x = 0;
                 tl.y = 0;
@@ -63,6 +63,8 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam) {
                 SetClipboardData(CF_BITMAP, bitmap);
                 CloseClipboard();
 
+                std::cout << "Copied!\n";
+
                 DRAWING_TICKS = 255;
 
                 SelectObject(hdc, old_obj);
@@ -72,6 +74,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam) {
             }
             else {
                 SetForegroundWindow(hwnd);
+                SetActiveWindow(hwnd);
             }
         }
         return 0;
